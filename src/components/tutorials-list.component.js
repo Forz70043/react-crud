@@ -4,7 +4,7 @@ import {
   retrieveTutorials,
   findTutorialsByTitle,
   deleteAllTutorials,
-} from "../actions/tutorials";
+} from "../slices/tutorials";
 import { Link } from "react-router-dom";
 
 class TutorialsList extends Component {
@@ -64,7 +64,7 @@ class TutorialsList extends Component {
   findByTitle() {
     this.refreshData();
 
-    this.props.findTutorialsByTitle(this.state.searchTitle);
+    this.props.findTutorialsByTitle({ title: this.state.searchTitle });
   }
 
   render() {

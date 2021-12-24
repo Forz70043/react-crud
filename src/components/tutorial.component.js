@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateTutorial, deleteTutorial } from "../actions/tutorials";
+import { updateTutorial, deleteTutorial } from "../slices/tutorials";
 import TutorialDataService from "../services/tutorial.service";
 
 class Tutorial extends Component {
@@ -74,7 +74,8 @@ class Tutorial extends Component {
     };
 
     this.props
-      .updateTutorial(this.state.currentTutorial.id, data)
+      .updateTutorial({ id: this.state.currentTutorial.id, data })
+      .unwrap()
       .then((reponse) => {
         console.log(reponse);
 
@@ -94,7 +95,8 @@ class Tutorial extends Component {
 
   updateContent() {
     this.props
-      .updateTutorial(this.state.currentTutorial.id, this.state.currentTutorial)
+      .updateTutorial({ id: this.state.currentTutorial.id, data: this.state.currentTutorial })
+      .unwrap()
       .then((reponse) => {
         console.log(reponse);
         
@@ -107,7 +109,7 @@ class Tutorial extends Component {
 
   removeTutorial() {
     this.props
-      .deleteTutorial(this.state.currentTutorial.id)
+      .deleteTutorial({ id: this.state.currentTutorial.id })
       .then(() => {
         this.props.history.push("/tutorials");
       })

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createTutorial } from "../actions/tutorials";
+import { createTutorial } from "../slices/tutorials";
 
 class AddTutorial extends Component {
   constructor(props) {
@@ -15,7 +15,6 @@ class AddTutorial extends Component {
       title: "",
       description: "",
       published: false,
-
       submitted: false,
     };
   }
@@ -36,14 +35,14 @@ class AddTutorial extends Component {
     const { title, description } = this.state;
 
     this.props
-      .createTutorial(title, description)
+      .createTutorial({ title, description })
+      .unwrap()
       .then((data) => {
         this.setState({
           id: data.id,
           title: data.title,
           description: data.description,
           published: data.published,
-
           submitted: true,
         });
         console.log(data);
@@ -59,7 +58,6 @@ class AddTutorial extends Component {
       title: "",
       description: "",
       published: false,
-
       submitted: false,
     });
   }
